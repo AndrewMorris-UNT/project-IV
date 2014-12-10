@@ -1,5 +1,7 @@
 class EntriesController < ApplicationController
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   respond_to :html
 
@@ -13,7 +15,7 @@ class EntriesController < ApplicationController
   end
 
   def new
-    @entry = Entry.new
+    @entry = current_user.entries.build
     respond_with(@entry)
   end
 
@@ -21,7 +23,7 @@ class EntriesController < ApplicationController
   end
 
   def create
-    @entry = Entry.new(entry_params)
+    @entry = current_user.entries.build(entry_params)
     @entry.save
     respond_with(@entry)
   end
@@ -39,6 +41,11 @@ class EntriesController < ApplicationController
   private
     def set_entry
       @entry = Entry.find(params[:id])
+    end
+
+    def correct_user
+      @entry = current_user.entries.find_by(id: params[:id])
+      redirect_to entries_path, notice: "Not authorized to edit this entry" if @entry.nil?
     end
 
     def entry_params
