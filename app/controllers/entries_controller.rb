@@ -23,13 +23,13 @@ class EntriesController < ApplicationController
   end
 
   def create
-    @entry = current_user.entries.build(entry_params)
+    @entry = current_user.entries.build(params[:entry])
     @entry.save
     respond_with(@entry)
   end
 
   def update
-    @entry.update(entry_params)
+    @entry.update(params[:entry])
     respond_with(@entry)
   end
 

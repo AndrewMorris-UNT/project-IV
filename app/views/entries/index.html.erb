@@ -1,32 +1,31 @@
-<h1>Listing entries</h1>
-
-<table>
-  <thead>
-    <tr>
-      <<th>Image</th>
-      <th>Description</th>
-      <<th>User Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @entries.each do |entry| %>
+<div id="entries" class="transitions">
+  <h1>Listing entries</h1>
+  <div class="box panel panel-default">
+  <table>
+    <thead>
       <tr>
-        <td><%= image_tag entry.image.url(:thumb) %></td>
-        <td><%= entry.description %></td>
-        <td><%= entry.user.email if entry.user %></td>
-        <td><%= link_to 'Show', entry %></td>
-        <% if entry.user == current_user %>
-        <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
-        <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
+        <<th>Image</th>
+        <th>Description</th>
+        <<th>User Email</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-<% if user_signed_in? %>
-  <%= link_to 'New Entry', new_entry_path %>
-<% end %>
+    <tbody>
+      <% @entries.each do |entry| %>
+        <tr>
+          <td><%= image_tag entry.image.url(:thumb) %></td>
+          <td><%= entry.description %></td>
+          <td><%= entry.user.email if entry.user %></td>
+          <td><%= link_to 'Show', entry %></td>
+          <% if entry.user == current_user %>
+          <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
+          <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+ </div>
+</div>

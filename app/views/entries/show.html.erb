@@ -5,7 +5,7 @@
   <%= @entry.description %>
 </p>
 
-<%if @pin.user == current_user %>
+<%if @entry.user == current_user %>
 	<%= link_to 'Edit', edit_entry_path(@entry) %> |
 <% end %>
 <%= link_to 'Back', entries_path %>
